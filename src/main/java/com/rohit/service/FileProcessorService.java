@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rohit.constant.Constants;
 import com.rohit.dao.SchedulerRepo;
 import com.rohit.dao.StandingOrderRepo;
 import com.rohit.exception.SORuntimeException;
@@ -95,7 +96,7 @@ public class FileProcessorService {
 			if (outputList.size() > 1) {
 				downloadCSVFile(outputList, filePath);
 				throw new SORuntimeException(
-						StandingOrderMigrationConstants.FILE_ERROR_MESSAGE + filePath + "output.csv");
+						Constants.FILE_ERROR_MESSAGE + filePath + "output.csv");
 			}
 
 		} catch (SORuntimeException ex) {
@@ -118,17 +119,17 @@ public class FileProcessorService {
 			for (Entry<String, Object> entry : map.entrySet()) {
 				if (SOMigrationUtil.columnMap.containsKey(entry.getKey())) {
 					String value = SOMigrationUtil.columnMap.get(entry.getKey());
-					if (value.equalsIgnoreCase(StandingOrderMigrationConstants.SCH_TYPE)) {
+					if (value.equalsIgnoreCase(Constants.SCH_TYPE)) {
 						scheduler.setSchedulerType((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.SCH_DATE)) {
+					} else if (value.equalsIgnoreCase(Constants.SCH_DATE)) {
 						scheduler.setSchedulerDate(SOMigrationUtil.dateFormat((String) entry.getValue()));
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.SCH_INTERVAL)) {
+					} else if (value.equalsIgnoreCase(Constants.SCH_INTERVAL)) {
 						scheduler.setSchedulerInterval(Integer.parseInt((String) entry.getValue()));
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.FIRST_ACTIVATION)) {
+					} else if (value.equalsIgnoreCase(Constants.FIRST_ACTIVATION)) {
 						// scheduler.setFirstActivation(firstActivation);
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.LAST_ACTIVATION)) {
+					} else if (value.equalsIgnoreCase(Constants.LAST_ACTIVATION)) {
 						// scheduler.setLastActivation(lastActivation);
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.SCH_HLDY_FL)) {
+					} else if (value.equalsIgnoreCase(Constants.SCH_HLDY_FL)) {
 						scheduler.setSchedulerHldyFl(((String) entry.getValue()).charAt(0));
 					}
 				}
@@ -151,29 +152,29 @@ public class FileProcessorService {
 			for (Entry<String, Object> entry : map.entrySet()) {
 				if (SOMigrationUtil.columnMap.containsKey(entry.getKey())) {
 					String value = SOMigrationUtil.columnMap.get(entry.getKey());
-					if (value.equalsIgnoreCase(StandingOrderMigrationConstants.SO_TYPE)) {
+					if (value.equalsIgnoreCase(Constants.SO_TYPE)) {
 						order.setStandingOrderType((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.SO_REFERENCE)) {
+					} else if (value.equalsIgnoreCase(Constants.SO_REFERENCE)) {
 						order.setReference((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.SO_CURRENCY)) {
+					} else if (value.equalsIgnoreCase(Constants.SO_CURRENCY)) {
 						order.setCurrency((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.SO_AMOUNT)) {
+					} else if (value.equalsIgnoreCase(Constants.SO_AMOUNT)) {
 						order.setAmount(new BigDecimal((String) entry.getValue()));
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.BENE_DETAILS)) {
+					} else if (value.equalsIgnoreCase(Constants.BENE_DETAILS)) {
 						order.setBeneficiaryDETAILS((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.RELATEDREFERENCE)) {
+					} else if (value.equalsIgnoreCase(Constants.RELATEDREFERENCE)) {
 						order.setRelatedReference((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.INTERMED_DTL)) {
+					} else if (value.equalsIgnoreCase(Constants.INTERMED_DTL)) {
 						order.setIntermediary((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.ORD_CUSTOMER)) {
+					} else if (value.equalsIgnoreCase(Constants.ORD_CUSTOMER)) {
 						order.setOrderCustomer((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.DETAIL_OF_PYMT)) {
+					} else if (value.equalsIgnoreCase(Constants.DETAIL_OF_PYMT)) {
 						order.setDetailsOfPayment((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.BENE_BANK)) {
+					} else if (value.equalsIgnoreCase(Constants.BENE_BANK)) {
 						order.setBeneficiaryBank((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.BANK2BANK)) {
+					} else if (value.equalsIgnoreCase(Constants.BANK2BANK)) {
 						order.setBank2Bank((String) entry.getValue());
-					} else if (value.equalsIgnoreCase(StandingOrderMigrationConstants.ORD_BANK_DTL)) {
+					} else if (value.equalsIgnoreCase(Constants.ORD_BANK_DTL)) {
 						order.setOrderingBankDetails((String) entry.getValue());
 					}
 				}

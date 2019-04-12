@@ -1,9 +1,9 @@
 
 package com.rohit.constant;
 
-public class StandingOrderMigrationConstants {
+public class Constants {
 
-	private StandingOrderMigrationConstants() {
+	private Constants() {
 
 	}
 		

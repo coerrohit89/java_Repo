@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bnym.standingordermigration.constants.StandingOrderMigrationConstants;
+import com.rohit.constant.Constants;
 import com.rohit.exception.SORuntimeException;
 import com.rohit.service.FileProcessorService;
 
@@ -49,7 +49,7 @@ public class FileUploadingController {
 	 * @throws IOException
 	 * 
 	 */
-	@RequestMapping(value = StandingOrderMigrationConstants.UPLOAD, method = RequestMethod.POST)
+	@RequestMapping(value = Constants.UPLOAD, method = RequestMethod.POST)
 	@ApiOperation(code = 201, value = "upload csv file", responseContainer = "String", notes = "upload csv file", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "The request has succeeded. Server is able to respond successfully."),
@@ -64,26 +64,26 @@ public class FileUploadingController {
 			HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws IOException {
 		try {
 			if (file.isEmpty()) {
-				redirectAttributes.addFlashAttribute(StandingOrderMigrationConstants.MESSAGE,
-						StandingOrderMigrationConstants.NOT_FOUND);
+				redirectAttributes.addFlashAttribute(Constants.MESSAGE,
+						Constants.NOT_FOUND);
 			}
 			System.out.println("path: " + PATH);
 			fileProcessorService.process(PATH, file);
-			redirectAttributes.addFlashAttribute(StandingOrderMigrationConstants.MESSAGE,
-					file.getOriginalFilename() + "\t" + StandingOrderMigrationConstants.SUCCESS);
+			redirectAttributes.addFlashAttribute(Constants.MESSAGE,
+					file.getOriginalFilename() + "\t" + Constants.SUCCESS);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			redirectAttributes.addFlashAttribute(StandingOrderMigrationConstants.MESSAGE,
-					StandingOrderMigrationConstants.ERROR_MESSAGE);
+			redirectAttributes.addFlashAttribute(Constants.MESSAGE,
+					Constants.ERROR_MESSAGE);
 		} catch (SORuntimeException e) {
 			e.printStackTrace();
-			redirectAttributes.addFlashAttribute(StandingOrderMigrationConstants.MESSAGE, e.getMessage());
+			redirectAttributes.addFlashAttribute(Constants.MESSAGE, e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			redirectAttributes.addFlashAttribute(StandingOrderMigrationConstants.MESSAGE,
-					StandingOrderMigrationConstants.ERROR_MESSAGE);
+			redirectAttributes.addFlashAttribute(Constants.MESSAGE,
+					Constants.ERROR_MESSAGE);
 		}
-		return StandingOrderMigrationConstants.REDR_UPLOAD_STATUS;
+		return Constants.REDR_UPLOAD_STATUS;
 	}
 
 	/**
@@ -91,8 +91,8 @@ public class FileUploadingController {
 	 * This method is show status page.
 	 * 
 	 */
-	@GetMapping(StandingOrderMigrationConstants.UPLOAD_STATUS)
+	@GetMapping(Constants.UPLOAD_STATUS)
 	public String uploadStatus() {
-		return StandingOrderMigrationConstants.PAGE_UPLOAD_STATUS;
+		return Constants.PAGE_UPLOAD_STATUS;
 	}
 }
